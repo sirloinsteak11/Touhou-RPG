@@ -25,6 +25,19 @@ public class CanvasController : MonoBehaviour
             BackButtons[closureIndex].onClick.AddListener(GoBackMenu);
         }
 
+        foreach (Transform child in transform)
+        {
+            if (child.gameObject.activeInHierarchy)
+            {
+                LastMenu = child.name;
+                LastBGM = musicSource.clip;
+            }
+
+            child.gameObject.SetActive(false);
+        }
+
+        gameObject.transform.Find("MainMenuCanvas").gameObject.SetActive(true);
+
         musicSource.clip = mmBGM;
         musicSource.Play();
     }
