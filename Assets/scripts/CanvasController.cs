@@ -13,8 +13,10 @@ public class CanvasController : MonoBehaviour
     [SerializeField] Button[] EOSDStageSelectionButtons = { eosd1, eosd2, eosd3, eosd4, eosd5, eosd6, eosdextra };
     private static Button eosd1weak, eosd1normal, eosd1strong, eosd1midboss, eosd1boss;
     [SerializeField] Button[] EOSDStage1Buttons = { eosd1weak, eosd1normal, eosd1strong, eosd1midboss, eosd1boss };
+    private static Button eosd2weak, eosd2normal, eosd2strong, eosd2midboss, eosd2boss;
+    [SerializeField] Button[] EOSDStage2Buttons = { eosd2weak, eosd2normal, eosd2strong, eosd2midboss, eosd2boss };
     public AudioSource musicSource;
-    public AudioClip mmBGM, EOSDFightBGM, CharaSelBGM, GachaBGM;
+    public AudioClip mmBGM, EOSDFightBGM, EOSDStage2FightBGM, CharaSelBGM, GachaBGM, rumiaTheme, cirnoTheme;
     [SerializeField] Button[] BackButtons;
 
     //Fight Canvas UI Elements
@@ -47,6 +49,12 @@ public class CanvasController : MonoBehaviour
         {
             int CI = i;
             EOSDStage1Buttons[CI].onClick.AddListener(delegate { StartFight(CheckButtonType(EOSDStage1Buttons[CI].gameObject.name), CheckButtonGame(EOSDStage1Buttons[CI].gameObject.name), CheckButtonStage(EOSDStage1Buttons[CI].gameObject.name), CheckButtonLevel(EOSDStage1Buttons[CI].gameObject.name), CheckButtonDifficulty(EOSDStage1Buttons[CI].gameObject.name)); });
+        }
+
+        for (int i = 0; i < EOSDStage2Buttons.Length; i++)
+        {
+            int CI = i;
+            EOSDStage2Buttons[CI].onClick.AddListener(delegate { StartFight(CheckButtonType(EOSDStage2Buttons[CI].gameObject.name), CheckButtonGame(EOSDStage2Buttons[CI].gameObject.name), CheckButtonStage(EOSDStage2Buttons[CI].gameObject.name), CheckButtonLevel(EOSDStage2Buttons[CI].gameObject.name), CheckButtonDifficulty(EOSDStage2Buttons[CI].gameObject.name)); });
         }
 
         PlayButton.onClick.AddListener(PlayButtonListener);
@@ -182,6 +190,7 @@ public class CanvasController : MonoBehaviour
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         GameObject EOSDStage1 = gameObject.transform.Find("LevelSelectCanvas").gameObject.transform.Find("EOSDStage1").gameObject;
+        GameObject EOSDStage2 = gameObject.transform.Find("LevelSelectCanvas").gameObject.transform.Find("EOSDStage2").gameObject;
 
         if (game == "eosd")
         {
@@ -195,6 +204,19 @@ public class CanvasController : MonoBehaviour
                 {
                     EOSDStage1.SetActive(true);
                     EOSDStage1.transform.position = mousePosition;
+                }
+            }
+
+            if (stage == "eosdstage2")
+            {
+                if (EOSDStage2.activeInHierarchy)
+                {
+                    EOSDStage2.SetActive(false);
+                }
+                else
+                {
+                    EOSDStage2.SetActive(true);
+                    EOSDStage2.transform.position = mousePosition;
                 }
             }
         }
@@ -226,6 +248,9 @@ public class CanvasController : MonoBehaviour
     {
         if (buttonName.Contains("Stage1"))
             return "stage1";
+
+        if (buttonName.Contains("Stage2"))
+            return "stage2";
 
         return "err";
     }
@@ -284,13 +309,179 @@ public class CanvasController : MonoBehaviour
 
                         gameObject.transform.Find("FightCanvas").gameObject.SetActive(true);
                         CurrentMenu = gameObject.transform.Find("FightCanvas").gameObject.name;
-                        musicSource.clip = EOSDFightBGM;
-                        musicSource.Play();
+                        if (musicSource.clip != EOSDFightBGM)
+                        {
+                            musicSource.clip = EOSDFightBGM;
+                            musicSource.Play();
+                        }
 
                         battleLog.text = "Weak fairy has appeared !!!";
                         playerTitle.text = "Lv1 Reimu"; //change later
                         enemyTitle.text = "Lv1 Fairy";
                         enemyHealth.text = "100 / 100"; // change later
+                        playerHealth.text = "100 / 100"; //change later
+                        enemySprite.sprite = enemySpriteList[0];
+                        enemySprite.preserveAspect = true;
+
+                        Debug.Log($"{LastMenu}, {LastBGM}, current canvas is {CurrentMenu}");
+                    }
+
+                    if (level == "enemy2")
+                    {
+                        foreach (Transform child in transform)
+                        {
+                            if (child.gameObject.activeInHierarchy)
+                            {
+                                LastMenu = child.name;
+                                LastBGM = musicSource.clip;
+                            }
+
+                            child.gameObject.SetActive(false);
+                        }
+
+                        gameObject.transform.Find("FightCanvas").gameObject.SetActive(true);
+                        CurrentMenu = gameObject.transform.Find("FightCanvas").gameObject.name;
+                        if (musicSource.clip != EOSDFightBGM)
+                        {
+                            musicSource.clip = EOSDFightBGM;
+                            musicSource.Play();
+                        }
+
+                        battleLog.text = "A fairy has appeared !!!";
+                        playerTitle.text = "Lv1 Reimu"; //change later
+                        enemyTitle.text = "Lv3 Fairy";
+                        enemyHealth.text = "200 / 200"; // change later
+                        playerHealth.text = "100 / 100"; //change later
+                        enemySprite.sprite = enemySpriteList[0];
+                        enemySprite.preserveAspect = true;
+
+                        Debug.Log($"{LastMenu}, {LastBGM}, current canvas is {CurrentMenu}");
+                    }
+
+                    if (level == "enemy3")
+                    {
+                        foreach (Transform child in transform)
+                        {
+                            if (child.gameObject.activeInHierarchy)
+                            {
+                                LastMenu = child.name;
+                                LastBGM = musicSource.clip;
+                            }
+
+                            child.gameObject.SetActive(false);
+                        }
+
+                        gameObject.transform.Find("FightCanvas").gameObject.SetActive(true);
+                        CurrentMenu = gameObject.transform.Find("FightCanvas").gameObject.name;
+                        if (musicSource.clip != EOSDFightBGM)
+                        {
+                            musicSource.clip = EOSDFightBGM;
+                            musicSource.Play();
+                        }
+
+                        battleLog.text = "A strong fairy has appeared !!!";
+                        playerTitle.text = "Lv1 Reimu"; //change later
+                        enemyTitle.text = "Lv5 Fairy";
+                        enemyHealth.text = "400 / 400"; // change later
+                        playerHealth.text = "100 / 100"; //change later
+                        enemySprite.sprite = enemySpriteList[0];
+                        enemySprite.preserveAspect = true;
+
+                        Debug.Log($"{LastMenu}, {LastBGM}, current canvas is {CurrentMenu}");
+                    }
+                }
+
+                if (stage == "stage2")
+                {
+                    if (level == "enemy1")
+                    {
+                        foreach (Transform child in transform)
+                        {
+                            if (child.gameObject.activeInHierarchy)
+                            {
+                                LastMenu = child.name;
+                                LastBGM = musicSource.clip;
+                            }
+
+                            child.gameObject.SetActive(false);
+                        }
+
+                        gameObject.transform.Find("FightCanvas").gameObject.SetActive(true);
+                        CurrentMenu = gameObject.transform.Find("FightCanvas").gameObject.name;
+                        if (musicSource.clip != EOSDStage2FightBGM)
+                        {
+                            musicSource.clip = EOSDStage2FightBGM;
+                            musicSource.Play();
+                        }
+
+                        battleLog.text = "An ice fairy has appeared !!!";
+                        playerTitle.text = "Lv1 Reimu"; //change later
+                        enemyTitle.text = "Lv5 Fairy";
+                        enemyHealth.text = "500 / 500"; // change later
+                        playerHealth.text = "100 / 100"; //change later
+                        enemySprite.sprite = enemySpriteList[0];
+                        enemySprite.preserveAspect = true;
+
+                        Debug.Log($"{LastMenu}, {LastBGM}, current canvas is {CurrentMenu}");
+                    }
+
+                    if (level == "enemy2")
+                    {
+                        foreach (Transform child in transform)
+                        {
+                            if (child.gameObject.activeInHierarchy)
+                            {
+                                LastMenu = child.name;
+                                LastBGM = musicSource.clip;
+                            }
+
+                            child.gameObject.SetActive(false);
+                        }
+
+                        gameObject.transform.Find("FightCanvas").gameObject.SetActive(true);
+                        CurrentMenu = gameObject.transform.Find("FightCanvas").gameObject.name;
+                        if (musicSource.clip != EOSDStage2FightBGM)
+                        {
+                            musicSource.clip = EOSDStage2FightBGM;
+                            musicSource.Play();
+                        }
+
+                        battleLog.text = "An ice fairy has appeared !!!";
+                        playerTitle.text = "Lv1 Reimu"; //change later
+                        enemyTitle.text = "Lv8 Fairy";
+                        enemyHealth.text = "800 / 800"; // change later
+                        playerHealth.text = "100 / 100"; //change later
+                        enemySprite.sprite = enemySpriteList[0];
+                        enemySprite.preserveAspect = true;
+
+                        Debug.Log($"{LastMenu}, {LastBGM}, current canvas is {CurrentMenu}");
+                    }
+
+                    if (level == "enemy3")
+                    {
+                        foreach (Transform child in transform)
+                        {
+                            if (child.gameObject.activeInHierarchy)
+                            {
+                                LastMenu = child.name;
+                                LastBGM = musicSource.clip;
+                            }
+
+                            child.gameObject.SetActive(false);
+                        }
+
+                        gameObject.transform.Find("FightCanvas").gameObject.SetActive(true);
+                        CurrentMenu = gameObject.transform.Find("FightCanvas").gameObject.name;
+                        if (musicSource.clip != EOSDStage2FightBGM)
+                        {
+                            musicSource.clip = EOSDStage2FightBGM;
+                            musicSource.Play();
+                        }
+
+                        battleLog.text = "A strong fairy has appeared !!!";
+                        playerTitle.text = "Lv1 Reimu"; //change later
+                        enemyTitle.text = "Lv10 Fairy";
+                        enemyHealth.text = "1000 / 1000"; // change later
                         playerHealth.text = "100 / 100"; //change later
                         enemySprite.sprite = enemySpriteList[0];
                         enemySprite.preserveAspect = true;
@@ -331,12 +522,51 @@ public class CanvasController : MonoBehaviour
                         battleLog.text = "A mysterious individual has appeared !!!";
                         playerTitle.text = "Lv1 Reimu"; //change later
                         enemyTitle.text = "Lv5 ???";
-                        enemyHealth.text = "100 / 100"; // change later
-                        playerHealth.text = "500 / 500"; //change later
+                        enemyHealth.text = "800 / 800"; // change later
+                        playerHealth.text = "100 / 100"; //change later
                         enemySprite.sprite = enemySpriteList[1];
                         enemySprite.preserveAspect = true;
 
                         Debug.Log($"{LastMenu}, {LastBGM}, current canvas is {CurrentMenu}");
+
+                        EOSDStage1Buttons[4].interactable = true;
+                    }
+                }
+
+                if (stage == "stage2")
+                {
+                    if (level == "enemy4")
+                    {
+                        foreach (Transform child in transform)
+                        {
+                            if (child.gameObject.activeInHierarchy)
+                            {
+                                LastMenu = child.name;
+                                LastBGM = musicSource.clip;
+                            }
+
+                            child.gameObject.SetActive(false);
+                        }
+
+                        gameObject.transform.Find("FightCanvas").gameObject.SetActive(true);
+                        CurrentMenu = gameObject.transform.Find("FightCanvas").gameObject.name;
+                        if (musicSource.clip != EOSDStage2FightBGM)
+                        {
+                            musicSource.clip = EOSDStage2FightBGM;
+                            musicSource.Play();
+                        }
+
+                        battleLog.text = "Daiyousei has appeared !!!";
+                        playerTitle.text = "Lv1 Reimu"; //change later
+                        enemyTitle.text = "Lv12 Daiyousei";
+                        enemyHealth.text = "1200 / 1200"; // change later
+                        playerHealth.text = "100 / 100"; //change later
+                        enemySprite.sprite = enemySpriteList[1];
+                        enemySprite.preserveAspect = true;
+
+                        Debug.Log($"{LastMenu}, {LastBGM}, current canvas is {CurrentMenu}");
+
+                        EOSDStage2Buttons[4].interactable = true;
                     }
                 }
             }
@@ -344,7 +574,82 @@ public class CanvasController : MonoBehaviour
 
         if (type == "boss")
         {
+            if (game == "eosd")
+            {
+                if (stage == "stage1")
+                {
+                    if (level == "enemy5")
+                    {
+                        foreach (Transform child in transform)
+                        {
+                            if (child.gameObject.activeInHierarchy)
+                            {
+                                LastMenu = child.name;
+                                LastBGM = musicSource.clip;
+                            }
 
+                            child.gameObject.SetActive(false);
+                        }
+
+                        gameObject.transform.Find("FightCanvas").gameObject.SetActive(true);
+                        CurrentMenu = gameObject.transform.Find("FightCanvas").gameObject.name;
+                        if (musicSource.clip != rumiaTheme)
+                        {
+                            musicSource.clip = rumiaTheme;
+                            musicSource.Play();
+                        }
+
+                        battleLog.text = "Rumia has appeared !!!";
+                        playerTitle.text = "Lv1 Reimu"; //change later
+                        enemyTitle.text = "Lv8 Rumia";
+                        enemyHealth.text = "1200 / 1200"; // change later
+                        playerHealth.text = "100 / 100"; //change later
+                        enemySprite.sprite = enemySpriteList[1];
+                        enemySprite.preserveAspect = true;
+
+                        Debug.Log($"{LastMenu}, {LastBGM}, current canvas is {CurrentMenu}");
+
+                        EOSDStageSelectionButtons[1].interactable = true;
+                    }
+                }
+
+                if (stage == "stage2")
+                {
+                    if (level == "enemy5")
+                    {
+                        foreach (Transform child in transform)
+                        {
+                            if (child.gameObject.activeInHierarchy)
+                            {
+                                LastMenu = child.name;
+                                LastBGM = musicSource.clip;
+                            }
+
+                            child.gameObject.SetActive(false);
+                        }
+
+                        gameObject.transform.Find("FightCanvas").gameObject.SetActive(true);
+                        CurrentMenu = gameObject.transform.Find("FightCanvas").gameObject.name;
+                        if (musicSource.clip != cirnoTheme)
+                        {
+                            musicSource.clip = cirnoTheme;
+                            musicSource.Play();
+                        }
+
+                        battleLog.text = "Cirno has appeared !!!";
+                        playerTitle.text = "Lv1 Reimu"; //change later
+                        enemyTitle.text = "Lv15 Cirno";
+                        enemyHealth.text = "1800 / 1800"; // change later
+                        playerHealth.text = "100 / 100"; //change later
+                        enemySprite.sprite = enemySpriteList[1];
+                        enemySprite.preserveAspect = true;
+
+                        Debug.Log($"{LastMenu}, {LastBGM}, current canvas is {CurrentMenu}");
+
+                        EOSDStageSelectionButtons[2].interactable = true;
+                    }
+                }
+            }
         }
     }
 
@@ -360,8 +665,11 @@ public class CanvasController : MonoBehaviour
             if (CurrentMenu == "LevelSelectCanvas")
             {
                 gameObject.transform.Find("CharacterSelectCanvas").gameObject.SetActive(true);
-                musicSource.clip = CharaSelBGM;
-                musicSource.Play();
+                if (musicSource.clip != CharaSelBGM)
+                {
+                    musicSource.clip = CharaSelBGM;
+                    musicSource.Play();
+                }
 
                 foreach (Transform child in transform)
                 {

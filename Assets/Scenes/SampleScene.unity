@@ -3087,7 +3087,7 @@ GameObject:
   - component: {fileID: 283047677}
   - component: {fileID: 283047676}
   m_Layer: 0
-  m_Name: Button (1)
+  m_Name: EnemyEOSDStage2enemy2Normal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6183,11 +6183,20 @@ MonoBehaviour:
   - {fileID: 1487468445}
   - {fileID: 1583941522}
   - {fileID: 1278996000}
+  EOSDStage2Buttons:
+  - {fileID: 1712994597}
+  - {fileID: 283047676}
+  - {fileID: 660136929}
+  - {fileID: 1826725646}
+  - {fileID: 545488440}
   musicSource: {fileID: 450774301}
   mmBGM: {fileID: 8300000, guid: 6d46b8905cebce0469fae21e7508d36a, type: 3}
   EOSDFightBGM: {fileID: 8300000, guid: cdd0f12cb9d0f4a659f4c0ccf7f8f9ad, type: 3}
+  EOSDStage2FightBGM: {fileID: 8300000, guid: 709ed40f704041a43a34283408b17626, type: 3}
   CharaSelBGM: {fileID: 8300000, guid: 10a338ddf0a74467cb9124dc72da2b0f, type: 3}
   GachaBGM: {fileID: 8300000, guid: fbdd1fe5f84eb4db9b0c1e3d992832e5, type: 3}
+  rumiaTheme: {fileID: 8300000, guid: ffccd6d9004924f4eb8dcc91a3a0f8c3, type: 3}
+  cirnoTheme: {fileID: 8300000, guid: d34f4e80b6124a24482aa7f5da637c0d, type: 3}
   BackButtons:
   - {fileID: 378757741}
   - {fileID: 669181376}
@@ -6202,7 +6211,7 @@ MonoBehaviour:
   enemySpriteList:
   - {fileID: 21300000, guid: 4f1ab983f987e4ffdb97e43c3db44258, type: 3}
   - {fileID: 21300000, guid: 2064d701e17954128969af18beaa37df, type: 3}
-  StartAtMainMenu: 1
+  StartAtMainMenu: 0
 --- !u!4 &499827312
 Transform:
   m_ObjectHideFlags: 0
@@ -6867,7 +6876,7 @@ GameObject:
   - component: {fileID: 545488441}
   - component: {fileID: 545488440}
   m_Layer: 0
-  m_Name: Button (4)
+  m_Name: BossEOSDStage2enemy5Extreme
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7566,7 +7575,7 @@ GameObject:
   - component: {fileID: 660136930}
   - component: {fileID: 660136929}
   m_Layer: 0
-  m_Name: Button (2)
+  m_Name: EnemyEOSDStage2enemy3Hard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17763,7 +17772,7 @@ GameObject:
   - component: {fileID: 1712994598}
   - component: {fileID: 1712994597}
   m_Layer: 0
-  m_Name: Button
+  m_Name: EnemyEOSDStage2enemy1Easy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18724,7 +18733,7 @@ GameObject:
   - component: {fileID: 1826725647}
   - component: {fileID: 1826725646}
   m_Layer: 0
-  m_Name: Button (3)
+  m_Name: MidbossEOSDStage2enemy4VeryHard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
