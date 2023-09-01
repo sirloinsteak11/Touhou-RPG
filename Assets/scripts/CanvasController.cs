@@ -21,8 +21,10 @@ public class CanvasController : MonoBehaviour
 
     //Fight Canvas UI Elements
     public TextMeshProUGUI battleLog, playerTitle, enemyTitle, playerHealth, enemyHealth;
-    public Image playerSprite, enemySprite;
+    public Image playerSprite, enemySprite, fightBackground;
     public Sprite[] enemySpriteList;
+    // [0] is stage1, [1] is stage2, etc
+    public Sprite[] fightBackgroundPics;
 
 #nullable enable
     private string? LastMenu, CurrentMenu;
@@ -294,6 +296,8 @@ public class CanvasController : MonoBehaviour
             {
                 if (stage == "stage1")
                 {
+                    fightBackground.sprite = fightBackgroundPics[0];
+
                     if (level == "enemy1")
                     {
                         foreach (Transform child in transform)
@@ -393,6 +397,8 @@ public class CanvasController : MonoBehaviour
 
                 if (stage == "stage2")
                 {
+                    fightBackground.sprite = fightBackgroundPics[1];
+
                     if (level == "enemy1")
                     {
                         foreach (Transform child in transform)
@@ -561,7 +567,7 @@ public class CanvasController : MonoBehaviour
                         enemyTitle.text = "Lv12 Daiyousei";
                         enemyHealth.text = "1200 / 1200"; // change later
                         playerHealth.text = "100 / 100"; //change later
-                        enemySprite.sprite = enemySpriteList[1];
+                        enemySprite.sprite = enemySpriteList[2];
                         enemySprite.preserveAspect = true;
 
                         Debug.Log($"{LastMenu}, {LastBGM}, current canvas is {CurrentMenu}");
@@ -641,7 +647,7 @@ public class CanvasController : MonoBehaviour
                         enemyTitle.text = "Lv15 Cirno";
                         enemyHealth.text = "1800 / 1800"; // change later
                         playerHealth.text = "100 / 100"; //change later
-                        enemySprite.sprite = enemySpriteList[1];
+                        enemySprite.sprite = enemySpriteList[3];
                         enemySprite.preserveAspect = true;
 
                         Debug.Log($"{LastMenu}, {LastBGM}, current canvas is {CurrentMenu}");
